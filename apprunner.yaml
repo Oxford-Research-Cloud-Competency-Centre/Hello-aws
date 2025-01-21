@@ -2,8 +2,12 @@ version: 1.0
 runtime: python3
 build:
   commands:
-    - pip3 install flask gunicorn
+    pre-build:
+      - pip install --upgrade pip
+    build:
+      - pip install flask gunicorn
+      - pip freeze > requirements.txt
 run:
-  command: python3 -m gunicorn app:app --bind 0.0.0.0:8080
+  command: python -m gunicorn --bind=0.0.0.0:8080 app:app
   network:
     port: 8080

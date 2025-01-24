@@ -59,5 +59,28 @@ Voilà! Access the URL.
 
 ![Voilà](README_images/img7.png)
 
+# Going further
+
+## Modifying the code
+
+You commit some changes to your repository and watch how the service is updated automatically. 
+
+## Using a custom domain 
+
+If you want to use a custom domain (like hello.com), just click "Link domain". If you are using Route 53, then AWS should create the record for you. Certificates are managed directly for you. 
+
+![Linking the domain](README_images/link_domain.png)
+
+![The DNS record](README_images/domain_routing.png)
+
+
+
+
+
+
+
+
+
+
 
 

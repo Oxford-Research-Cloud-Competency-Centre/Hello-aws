@@ -65,15 +65,28 @@ Voilà! Access the URL.
 
 You commit some changes to your repository and watch how the service is updated automatically. 
 
+![Updating a service](README_images/update.png)
+
 ## Using a custom domain 
 
-If you want to use a custom domain (like hello.com), just click "Link domain". If you are using Route 53, then AWS should create the record for you. Certificates are managed directly for you. 
+If you want to use a custom domain (like hello.com), just click "Link domain".
 
 ![Linking the domain](README_images/link_domain.png)
 
+If you are using Route 53, then AWS should create the record for you. You don't need to do this step but you might need to delete the records manually when you remove the service. 
+
 ![The DNS record](README_images/domain_routing.png)
 
+Voilà! 
+
 ![Voilà](README_images/domain.png)
+
+## Cleaning up
+
+Don't forget to delete your service when you are no longer using it. You can always redeploy later. 
+
+![Deleting a service](README_images/delete.png)
+
 
 
 

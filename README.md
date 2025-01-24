@@ -73,7 +73,7 @@ If you want to use a custom domain (like hello.com), just click "Link domain". I
 
 ![The DNS record](README_images/domain_routing.png)
 
-
+![Voilà](README_images/domain.png)
 
 
 

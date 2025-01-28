@@ -59,6 +59,8 @@ Voilà! Access the URL.
 
 ![Voilà](README_images/img7.png)
 
+***
+
 # Going further
 
 ## Modifying the code
@@ -73,9 +75,13 @@ If you want to use a custom domain (like hello.com), just click "Link domain".
 
 ![Linking the domain](README_images/link_domain.png)
 
+***
+
 If you are using Route 53, then AWS should create the record for you. You don't need to do this step but you might need to delete the records manually when you remove the service. 
 
 ![The DNS record](README_images/domain_routing.png)
+
+***
 
 Voilà! 
 
@@ -87,7 +93,25 @@ Don't forget to delete your service when you are no longer using it. You can alw
 
 ![Deleting a service](README_images/delete.png)
 
+## Adding an API endpoint
 
+Add the following code in app.py 
+
+```	
+@app.route("/hello_api")
+def hello_api():
+    return {
+        "name": "Wrinkle Five Star",
+		"species": "Duck",
+		"breed": "American Pekin",
+        "hatching_date": "2020-09-09",
+		"sex": "Male"
+    }
+```
+
+Then test your endpoint
+
+![API endpoint](README_images/hello_api.png)
 
 
 

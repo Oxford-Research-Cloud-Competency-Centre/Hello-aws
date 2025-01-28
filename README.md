@@ -4,7 +4,7 @@ This course is available for multiple cloud providers. Choose your preferred pla
 
 - [Hello Google Cloud](https://github.com/Oxford-Research-Cloud-Competency-Centre/Hello-gcloud)
 - [Hello Microsoft Azure](https://github.com/Oxford-Research-Cloud-Competency-Centre/Hello-mazure)
-- [Hello Amazon Web Services](https://github.com/Oxford-Research-Cloud-Competency-Centre/Hello-aws)
+- [Hello Amazon Web Services](https://github.com/Oxford-Research-Cloud-Competency-Centre/Hello-aws) (⭐ Most popular)
 - Hello Oracle Cloud *(Coming Soon)*
 - Hello IBM Cloud *(Coming Soon)*
 - Hello Tencent Cloud *(Coming Soon)*
@@ -101,10 +101,10 @@ Add the following code in app.py
 @app.route("/hello_api")
 def hello_api():
     return {
-        "name": "Wrinkle Five Star",
+		"name": "Wrinkle Five Star",
 		"species": "Duck",
 		"breed": "American Pekin",
-        "hatching_date": "2020-09-09",
+		"hatching_date": "2020-09-09",
 		"sex": "Male"
     }
 ```

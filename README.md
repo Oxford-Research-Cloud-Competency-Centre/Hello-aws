@@ -19,7 +19,7 @@ This course is available for multiple cloud providers. Choose your preferred pla
 
 Step 1. Fork (or make a copy of) this repository
 <details>
-<summary>Step 2. Go to the Amazon Web Services Console and type "app runner" in the search bar</summary>
+<summary>Step 2. Go to the AWS Console and type "app runner" in the search bar</summary>
 
 ![Step 2](README_images/img1.png)
 
@@ -129,18 +129,25 @@ Then test your endpoint
 
 ![API endpoint](README_images/hello_api.png)
 
+## Adding an user interface
+
+<details>
+<summary>...</summary>
+Missing content
+</details>
+
 ## Database writing/reading
 
 <details>
-<summary>Go to the Amazon Web Services Console and type "RDS" in the search bar</summary>
-A possible future section
+<summary>Go to the AWS Console and type "RDS" in the search bar</summary>
+Missing content
 </details>
 
 ## Storage bucket writing/reading
 
 <details>
-<summary>Go to the Amazon Web Services Console and type "S3" in the search bar</summary>
-A possible future section
+<summary>Go to the AWS Console and type "S3" in the search bar</summary>
+Missing content
 </details>
 
 

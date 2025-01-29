@@ -129,7 +129,7 @@ Then test your endpoint
 
 ![API endpoint](README_images/hello_api.png)
 
-## Adding an user interface
+## User interface
 
 <details>
 <summary>...</summary>

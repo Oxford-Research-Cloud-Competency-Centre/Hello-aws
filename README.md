@@ -1,3 +1,5 @@
+© Chancellors, Masters and Scholars of The University of Oxford. All rights reserved.
+
 # Explore different providers
 
 This course is available for multiple cloud providers. Choose your preferred platform:
@@ -127,9 +129,19 @@ Then test your endpoint
 
 ![API endpoint](README_images/hello_api.png)
 
+## Database writing/reading
 
+<details>
+<summary>Go to the Amazon Web Services Console and type "RDS" in the search bar</summary>
+A possible future section
+</details>
 
+## Storage bucket writing/reading
 
+<details>
+<summary>Go to the Amazon Web Services Console and type "S3" in the search bar</summary>
+A possible future section
+</details>
 
 
 

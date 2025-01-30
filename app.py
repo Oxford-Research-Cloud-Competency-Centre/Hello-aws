@@ -1,4 +1,4 @@
-# © Chancellors, Masters and Scholars of The University of Oxford. All rights reserved
+# © The Chancellor, Masters and Scholars of The University of Oxford. All rights reserved
 
 from flask import Flask, render_template
 

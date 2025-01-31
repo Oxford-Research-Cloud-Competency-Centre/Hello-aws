@@ -8,10 +8,6 @@ This course is available for multiple cloud providers. Choose your preferred pla
 - [Hello Microsoft Azure](https://github.com/Oxford-Research-Cloud-Competency-Centre/Hello-mazure)
 - [Hello Amazon Web Services](https://github.com/Oxford-Research-Cloud-Competency-Centre/Hello-aws) (⭐ Most popular)
 - Hello Oracle Cloud *(Coming Soon)*
-- Hello IBM Cloud *(Coming Soon)*
-- Hello Tencent Cloud *(Coming Soon)*
-- Hello Alibaba Cloud *(Coming Soon)*
-- Hello Baidu AI Cloud *(Coming Soon)*
 
 *Note: Entries marked with "Coming Soon" are planned versions that are currently under development.*
 
@@ -150,6 +146,50 @@ Missing content
 Missing content
 </details>
 
+## Local testing
+
+After a while, it's not fun anymore to wait for deployment. You want to test your changes before. 
+
+<details>
+<summary>Step 1. Install git and clone the repository on your local machine</summary>
+
+```	
+	git clone {repository_link}
+```
+
+***
+</details>
+<details>
+<summary>Step 2. Install Python</summary>
+
+```	
+https://www.python.org/downloads/
+```
+
+***
+</details>
+<details>
+<summary>Step 3. Install dependencies</summary>
+
+```	
+	 py -m pip install flask
+```
+
+***
+</details>
+<details>
+<summary>Step 4. Run flask</summary>
+
+```	
+	 py -m flask run
+```
+
+Open localhost:5000 in your browser.  
+
+***
+</details>
+
+![Local testing](README_images/local_testing.png)
 
 
 

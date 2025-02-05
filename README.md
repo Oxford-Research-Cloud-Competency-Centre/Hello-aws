@@ -13,7 +13,13 @@ This course is available for multiple cloud providers. Choose your preferred pla
 
 # Instructions
 
-Step 1. Fork (or make a copy of) this repository
+<details>
+<summary>Step 1. Fork (or make a copy of) this repository</summary>
+
+![Step 2](README_images/download.png)
+
+***
+</details>
 <details>
 <summary>Step 2. Go to the AWS Console and type "app runner" in the search bar</summary>
 
@@ -66,15 +72,18 @@ Voilà! Access the URL.
 
 # Going further
 
-## Modifying the code
+<details>
+<summary><h2>Modifying the code</h2></summary>
 
 <details>
-<summary>You can commit some changes to your repository and watch how the service is updated automatically. </summary>
+<summary>You can commit some changes to your repository and watch how the service is updated automatically.</summary>
 
 ![Updating a service](README_images/update.png)
 </details>
+</details>
 
-## Using a custom domain 
+<details>
+<summary><h2>Using a custom domain</h2></summary>
 
 <details>
 <summary>Step 1. If you want to use a custom domain (like hello.com), just click "Link domain".</summary>
@@ -95,7 +104,10 @@ Voilà!
 
 ![Voilà](README_images/domain.png)
 
-## Cleaning up
+</details>
+
+<details>
+<summary><h2>Cleaning up</h2></summary>
 
 <details>
 <summary>Don't forget to delete your service when you are no longer using it. You can always redeploy later. </summary>
@@ -103,7 +115,10 @@ Voilà!
 ![Deleting a service](README_images/delete.png)
 </details>
 
-## Adding an API endpoint
+</details>
+
+<details>
+<summary><h2>Adding an API endpoint</h2></summary>
 
 <details>
 <summary>Add the following code in app.py</summary>
@@ -125,28 +140,40 @@ Then test your endpoint
 
 ![API endpoint](README_images/hello_api.png)
 
-## User interface
+</details>
+
+<details>
+<summary><h2>User interface</h2></summary>
 
 <details>
 <summary>...</summary>
 Missing content
 </details>
 
-## Database writing/reading
+</details>
+
+<details>
+<summary><h2>Database writing/reading</h2></summary>
 
 <details>
 <summary>Go to the AWS Console and type "RDS" in the search bar</summary>
 Missing content
 </details>
 
-## Storage bucket writing/reading
+</details>
+
+<details>
+<summary><h2>Storage bucket writing/reading</h2></summary>
 
 <details>
 <summary>Go to the AWS Console and type "S3" in the search bar</summary>
 Missing content
 </details>
 
-## Local testing
+</details>
+
+<details>
+<summary><h2>Local testing</h2></summary>
 
 After a while, it's not fun anymore to wait for deployment. You want to test your changes before. 
 
@@ -191,6 +218,6 @@ Open localhost:5000 in your browser.
 
 ![Local testing](README_images/local_testing.png)
 
-
+</details>
 
 

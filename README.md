@@ -75,11 +75,10 @@ Voilà! Access the URL.
 <details>
 <summary><h2>Modifying the code</h2></summary>
 
-<details>
-<summary>You can commit some changes to your repository and watch how the service is updated automatically.</summary>
+You can commit some changes to your repository and watch how the service is updated automatically.
 
 ![Updating a service](README_images/update.png)
-</details>
+
 </details>
 
 <details>
@@ -109,19 +108,16 @@ Voilà!
 <details>
 <summary><h2>Cleaning up</h2></summary>
 
-<details>
-<summary>Don't forget to delete your service when you are no longer using it. You can always redeploy later. </summary>
+Don't forget to delete your service when you are no longer using it. You can always redeploy later.
 
 ![Deleting a service](README_images/delete.png)
-</details>
 
 </details>
 
 <details>
 <summary><h2>Adding an API endpoint</h2></summary>
 
-<details>
-<summary>Add the following code in app.py</summary>
+Add the following code in app.py
 
 ```	
 @app.route("/hello_api")
@@ -134,7 +130,6 @@ def hello_api():
 		"sex": "Male"
     }
 ```
-</details>
 
 Then test your endpoint
 
@@ -145,10 +140,7 @@ Then test your endpoint
 <details>
 <summary><h2>User interface</h2></summary>
 
-<details>
-<summary>...</summary>
 Missing content
-</details>
 
 </details>
 
@@ -220,4 +212,15 @@ Open localhost:5000 in your browser.
 
 </details>
 
+<details>
+<summary><h2>Running a job on a separate machine</h2></summary>
+
+This web server is not powerful enough to handle sophisticated tasks. What if GPUs are needed for a heavy workflow? Then you need the ability to create machines dynamically and control them remotely (Infrastructure as Code). 
+
+<details>
+<summary>Install dependencies</summary>
+Missing content
+</details>
+
+</details>
 

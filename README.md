@@ -224,3 +224,84 @@ Missing content
 
 </details>
 
+# Working through CLI 
+
+If you want to deploy without Git, you can achieve that through the Elastic Container Registry. 
+
+<details>
+<summary><h2>Setup the AWS CLI on your machine </h2></summary>
+
+<details>
+<summary>Step 1. Install it</summary>
+
+https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
+
+***
+</details>
+
+<details>
+<summary>Step 2. Go to security credentials </summary>
+
+![Security credentials](README_images/security_credentials.png)
+
+***
+</details>
+
+<details>
+<summary>Step 3. Create an access key </summary>
+
+![Access key](README_images/create_access_key.png)
+
+![Access key](README_images/access_key.png)
+
+***
+</details>
+
+<details>
+<summary>Step 4. aws configure </summary>
+
+![Access key](README_images/aws_configure.png)
+
+***
+</details>
+</details>
+
+
+<details>
+<summary><h2>Upload to ECR</h2></summary>
+
+<details>
+<summary>Step 1. Make sure docker is installed </summary>
+
+***
+</details>
+
+<details>
+<summary>Step 2. Run script upload_ecr_image.py </summary>
+
+![Access key](README_images/upload_ecr_image.png)
+
+***
+</details>
+
+<details>
+<summary>Step 3. Deploy with ECR</summary>
+
+![Access key](README_images/deploy_with_ecr.png)
+
+***
+</details>
+
+</details>
+
+
+<details>
+<summary><h2>Create the service</h2></summary>
+
+Missing content
+
+</details>
+
+
+
+

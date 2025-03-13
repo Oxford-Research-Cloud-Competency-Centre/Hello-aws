@@ -232,7 +232,7 @@ If you want to deploy without Git, you can achieve that through the Elastic Cont
 <summary><h2>Setup the AWS CLI on your machine </h2></summary>
 
 <details>
-<summary>Step 1. Install it</summary>
+<summary>Step 1. Install the AWS CLI</summary>
 
 https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
 
@@ -240,7 +240,7 @@ https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
 </details>
 
 <details>
-<summary>Step 2. Go to security credentials </summary>
+<summary>Step 2. In the AWS Console, go to security credentials </summary>
 
 ![Security credentials](README_images/security_credentials.png)
 
@@ -258,7 +258,9 @@ https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
 </details>
 
 <details>
-<summary>Step 4. aws configure </summary>
+<summary>Step 4. Configure AWS on your local machine </summary>
+
+Command: aws configure
 
 ![Access key](README_images/aws_configure.png)
 
@@ -271,13 +273,23 @@ https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
 <summary><h2>Upload to ECR</h2></summary>
 
 <details>
-<summary>Step 1. Make sure docker is installed </summary>
+<summary>Step 1. Install Python on your local machine </summary>
+
+https://www.python.org/downloads/
 
 ***
 </details>
 
 <details>
-<summary>Step 2. Run script upload_ecr_image.py </summary>
+<summary>Step 2. Install Docker on your local machine </summary>
+
+https://www.docker.com/get-started/
+
+***
+</details>
+
+<details>
+<summary>Step 3. Run script upload_ecr_image.py </summary>
 
 ![Access key](README_images/upload_ecr_image.png)
 
@@ -285,7 +297,23 @@ https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
 </details>
 
 <details>
-<summary>Step 3. Deploy with ECR</summary>
+<summary>Step 4. In the AWS Console search bar, type "ecr" </summary>
+
+![Access key](README_images/search_ecr.png)
+
+***
+</details>
+
+<details>
+<summary>Step 5. Check that the repository appears </summary>
+
+![Ac](README_images/ecr_repositories.png)
+
+***
+</details>
+
+<details>
+<summary>Step 6. Now you can go back to creating an App Runner service using the ECR. You have the choice to do that through the AWS Console again, or programmatically with a script in the next section.</summary>
 
 ![Access key](README_images/deploy_with_ecr.png)
 

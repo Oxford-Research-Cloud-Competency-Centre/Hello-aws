@@ -165,7 +165,7 @@ Missing content
 </details>
 
 <details>
-<summary><h2>Local testing</h2></summary>
+<summary><h2>Testing on your local machine</h2></summary>
 
 After a while, it's not fun anymore to wait for deployment. You want to test your changes before. 
 
@@ -224,15 +224,13 @@ Missing content
 
 </details>
 
-# Working through CLI 
-
-If you want to deploy without Git, you can achieve that through the Elastic Container Registry. 
+# Working through CLI on your local machine
 
 <details>
-<summary><h2>Setup the AWS CLI on your machine </h2></summary>
+<summary><h2>Setup the AWS CLI</h2></summary>
 
 <details>
-<summary>Step 1. Install the AWS CLI</summary>
+<summary>Step 1. Install the AWS CLI on your local machine</summary>
 
 https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
 
@@ -258,7 +256,7 @@ https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
 </details>
 
 <details>
-<summary>Step 4. Configure AWS on your local machine </summary>
+<summary>Step 4. Configure AWS on your local machine</summary>
 
 Command: aws configure
 
@@ -270,7 +268,7 @@ Command: aws configure
 
 
 <details>
-<summary><h2>Upload to ECR</h2></summary>
+<summary><h2>Upload the app to Elastic Container Registry</h2></summary>
 
 <details>
 <summary>Step 1. Install Python on your local machine </summary>

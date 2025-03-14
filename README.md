@@ -322,9 +322,29 @@ https://www.docker.com/get-started/
 
 
 <details>
-<summary><h2>Create the service</h2></summary>
+<summary><h2>Create the service using the ECR image</h2></summary>
 
-Missing content
+<details>
+<summary>Step 1. Run script create_service.py </summary>
+
+![Create service](README_images/create_service.png)
+
+***
+</details>
+<details>
+<summary>Step 2. Go to the AWS Console and type "app runner" in the search bar</summary>
+
+![Search app runner](README_images/img1.png)
+
+***
+</details>
+<details>
+<summary>Step 3. Check the service is up and running</summary>
+
+![Services](README_images/services.png)
+
+***
+</details>
 
 </details>
 

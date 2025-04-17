@@ -140,7 +140,17 @@ Then test your endpoint
 <details>
 <summary><h2>User interface</h2></summary>
 
-Missing content
+In app.py, change the default route from "index.html" to "user_interface.html"
+
+```	
+@app.route("/")
+def home():
+    return render_template("user_interface.html")
+```
+
+Access the URL again and make sure the duck appears. 
+
+![Duck](README_images/duck.png)
 
 </details>
 

@@ -168,11 +168,14 @@ You have the choice between running a Python script or running a CLI command to 
 </details>
 
 <details>
-<summary>Upload duck.glb to S3.</summary>
+<summary>Upload duck.glb to S3</summary>
 
 ![Duck](README_images/upload_s3_bucket.png)
 
-Check the duck is in the bucket
+</details>
+
+<details>
+<summary>Check the duck is in the bucket</summary>
 
 ![Duck](README_images/duck_in_bucket.png)
 

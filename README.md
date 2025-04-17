@@ -155,21 +155,34 @@ Access the URL again and make sure the duck appears.
 </details>
 
 <details>
-<summary><h2>Database writing/reading</h2></summary>
+<summary><h2>Storage bucket</h2></summary>
+
 
 <details>
-<summary>Go to the AWS Console and type "RDS" in the search bar</summary>
-Missing content
+<summary>If you have enabled the user interface, you should find consoles under the duck.</summary>
+
+You have the choice between running a Python script or running a CLI command to create a S3 bucket. 
+
+![Duck](README_images/create_s3_bucket.png)
+
 </details>
 
+<details>
+<summary>Upload duck.glb to S3.</summary>
+
+![Duck](README_images/upload_s3_bucket.png)
+
+Check the duck is in the bucket
+
+![Duck](README_images/duck_in_bucket.png)
+
 </details>
 
 <details>
-<summary><h2>Storage bucket writing/reading</h2></summary>
+<summary>Cleaning up</summary>
 
-<details>
-<summary>Go to the AWS Console and type "S3" in the search bar</summary>
-Missing content
+![Duck](README_images/cleanup_s3_bucket.png)
+
 </details>
 
 </details>

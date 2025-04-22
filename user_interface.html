@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Model Viewer</title>
+    <title>AWS Workshop</title>
     <style>
         body {
             margin: 0;
@@ -199,7 +199,9 @@
                     <button class="run-button" onclick="runPythonCode('create-bucket')">RUN</button>
                 </div>
                 <textarea class="code-editor" id="create-bucket-python-code">s3 = boto3.client('s3')
-bucket_name = 'my-duck-bucket-' + str(uuid.uuid4())
+sts = boto3.client('sts')
+account_id = sts.get_caller_identity()['Account']
+bucket_name = f'workshop-bucket-{account_id}'
 region = boto3.Session().region_name
 s3.create_bucket(
     Bucket=bucket_name,
@@ -216,7 +218,7 @@ currentBucketName = bucket_name</textarea>
                     <span>AWS CLI</span>
                     <button class="run-button" onclick="runCliCode('create-bucket')">RUN</button>
                 </div>
-                <textarea class="code-editor" id="create-bucket-cli-code">BUCKET_NAME="my-duck-bucket-$(uuidgen)" && aws s3api create-bucket --bucket $BUCKET_NAME --create-bucket-configuration LocationConstraint=$(aws configure get region) && echo "Bucket $BUCKET_NAME created successfully!"</textarea>
+                <textarea class="code-editor" id="create-bucket-cli-code">ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text) && BUCKET_NAME="workshop-bucket-cli-${ACCOUNT_ID}" && aws s3api create-bucket --bucket $BUCKET_NAME --create-bucket-configuration LocationConstraint=$(aws configure get region) && echo "Bucket $BUCKET_NAME created successfully!"</textarea>
                 <div class="output-box" id="create-bucket-cli-output"></div>
             </div>
         </div>
@@ -231,13 +233,16 @@ currentBucketName = bucket_name</textarea>
                     <button class="run-button" onclick="runPythonCode('upload-file')">RUN</button>
                 </div>
                 <textarea class="code-editor" id="upload-file-python-code">s3 = boto3.client('s3')
+sts = boto3.client('sts')
+account_id = sts.get_caller_identity()['Account']
+bucket_name = f'workshop-bucket-{account_id}'
 s3.upload_file(
     'duck.glb',
-    '${currentBucketName}',
+    bucket_name,
     'duck.glb',
     ExtraArgs={'ContentType': 'model/gltf-binary'}
 )
-print(f"File uploaded successfully to {currentBucketName}/duck.glb")</textarea>
+print(f"File uploaded successfully to {bucket_name}/duck.glb")</textarea>
                 <div class="output-box" id="upload-file-python-output"></div>
             </div>
             <div class="code-box">
@@ -245,7 +250,7 @@ print(f"File uploaded successfully to {currentBucketName}/duck.glb")</textarea>
                     <span>AWS CLI</span>
                     <button class="run-button" onclick="runCliCode('upload-file')">RUN</button>
                 </div>
-                <textarea class="code-editor" id="upload-file-cli-code">aws s3 cp duck.glb s3://${currentBucketName}/duck.glb --content-type "model/gltf-binary" && echo "File uploaded successfully to ${currentBucketName}/duck.glb"</textarea>
+                <textarea class="code-editor" id="upload-file-cli-code">ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text) && BUCKET_NAME="workshop-bucket-cli-${ACCOUNT_ID}" && aws s3 cp duck.glb s3://$BUCKET_NAME/duck.glb --content-type "model/gltf-binary" && echo "File uploaded successfully to $BUCKET_NAME/duck.glb"</textarea>
                 <div class="output-box" id="upload-file-cli-output"></div>
             </div>
         </div>
@@ -261,11 +266,13 @@ print(f"File uploaded successfully to {currentBucketName}/duck.glb")</textarea>
                 </div>
                 <textarea class="code-editor" id="delete-bucket-python-code">s3 = boto3.client('s3')
 s3_resource = boto3.resource('s3')
-bucket = s3_resource.Bucket('${currentBucketName}')
+sts = boto3.client('sts')
+account_id = sts.get_caller_identity()['Account']
+bucket_name = f'workshop-bucket-{account_id}'
+bucket = s3_resource.Bucket(bucket_name)
 bucket.objects.all().delete()
-s3.delete_bucket(Bucket='${currentBucketName}')
-print(f"Bucket {currentBucketName} deleted successfully!")
-currentBucketName = None</textarea>
+s3.delete_bucket(Bucket=bucket_name)
+print(f"Bucket {bucket_name} deleted successfully!")</textarea>
                 <div class="output-box" id="delete-bucket-python-output"></div>
             </div>
             <div class="code-box">
@@ -273,7 +280,7 @@ currentBucketName = None</textarea>
                     <span>AWS CLI</span>
                     <button class="run-button" onclick="runCliCode('delete-bucket')">RUN</button>
                 </div>
-                <textarea class="code-editor" id="delete-bucket-cli-code">aws s3 rm s3://${currentBucketName} --recursive && aws s3api delete-bucket --bucket ${currentBucketName} && echo "Bucket ${currentBucketName} deleted successfully!"</textarea>
+                <textarea class="code-editor" id="delete-bucket-cli-code">ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text) && BUCKET_NAME="workshop-bucket-cli-${ACCOUNT_ID}" && aws s3 rm s3://$BUCKET_NAME --recursive && aws s3api delete-bucket --bucket $BUCKET_NAME && echo "Bucket $BUCKET_NAME deleted successfully!"</textarea>
                 <div class="output-box" id="delete-bucket-cli-output"></div>
             </div>
         </div>
@@ -326,7 +333,7 @@ currentBucketName = None</textarea>
                     outputBox.textContent = result.output || 'Operation completed successfully!';
                     if (operation === 'create-bucket' && result.output) {
                         // Extract bucket name from output
-                        const match = result.output.match(/Bucket (my-duck-bucket-[^ ]+) created successfully!/);
+                        const match = result.output.match(/Bucket (my-3d-model-bucket[^ ]+) created successfully!/);
                         if (match) {
                             currentBucketName = match[1];
                         }

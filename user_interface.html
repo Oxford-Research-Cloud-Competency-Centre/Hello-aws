@@ -232,17 +232,20 @@ currentBucketName = bucket_name</textarea>
                     <span>Python (boto3)</span>
                     <button class="run-button" onclick="runPythonCode('upload-file')">RUN</button>
                 </div>
-                <textarea class="code-editor" id="upload-file-python-code">s3 = boto3.client('s3')
+                <textarea class="code-editor" id="upload-file-python-code"># Set the filename you want to upload
+filename = 'duck.glb'
+
+s3 = boto3.client('s3')
 sts = boto3.client('sts')
 account_id = sts.get_caller_identity()['Account']
 bucket_name = f'workshop-bucket-{account_id}'
 s3.upload_file(
-    'duck.glb',
+    filename,
     bucket_name,
-    'duck.glb',
+    filename,
     ExtraArgs={'ContentType': 'model/gltf-binary'}
 )
-print(f"File uploaded successfully to {bucket_name}/duck.glb")</textarea>
+print(f"File {filename} uploaded successfully to {bucket_name}/{filename}")</textarea>
                 <div class="output-box" id="upload-file-python-output"></div>
             </div>
             <div class="code-box">
@@ -250,14 +253,54 @@ print(f"File uploaded successfully to {bucket_name}/duck.glb")</textarea>
                     <span>AWS CLI</span>
                     <button class="run-button" onclick="runCliCode('upload-file')">RUN</button>
                 </div>
-                <textarea class="code-editor" id="upload-file-cli-code">ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text) && BUCKET_NAME="workshop-bucket-cli-${ACCOUNT_ID}" && aws s3 cp duck.glb s3://$BUCKET_NAME/duck.glb --content-type "model/gltf-binary" && echo "File uploaded successfully to $BUCKET_NAME/duck.glb"</textarea>
+                <textarea class="code-editor" id="upload-file-cli-code"># Set the filename you want to upload
+FILENAME="duck.glb"
+
+ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text) && BUCKET_NAME="workshop-bucket-cli-${ACCOUNT_ID}" && aws s3 cp $FILENAME s3://$BUCKET_NAME/$FILENAME --content-type "model/gltf-binary" && echo "File $FILENAME uploaded successfully to $BUCKET_NAME/$FILENAME"</textarea>
                 <div class="output-box" id="upload-file-cli-output"></div>
             </div>
         </div>
     </div>
 
     <div class="code-section">
-        <h2>3. Clean Up (Delete Bucket)</h2>
+        <h2>3. Download oxford.glb from S3</h2>
+        <div class="code-container">
+            <div class="code-box">
+                <div class="code-header">
+                    <span>Python (boto3)</span>
+                    <button class="run-button" onclick="runPythonCode('download-file')">RUN</button>
+                </div>
+                <textarea class="code-editor" id="download-file-python-code"># Set the filename you want to download from S3
+filename = 'oxford.glb'
+
+s3 = boto3.client('s3')
+sts = boto3.client('sts')
+account_id = sts.get_caller_identity()['Account']
+bucket_name = f'workshop-bucket-{account_id}'
+s3.download_file(
+    bucket_name,
+    filename,
+    'downloaded.glb'
+)
+print(f"File {filename} downloaded successfully from {bucket_name}/{filename} as downloaded.glb")</textarea>
+                <div class="output-box" id="download-file-python-output"></div>
+            </div>
+            <div class="code-box">
+                <div class="code-header">
+                    <span>AWS CLI</span>
+                    <button class="run-button" onclick="runCliCode('download-file')">RUN</button>
+                </div>
+                <textarea class="code-editor" id="download-file-cli-code"># Set the filename you want to download from S3
+FILENAME="oxford.glb"
+
+ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text) && BUCKET_NAME="workshop-bucket-cli-${ACCOUNT_ID}" && aws s3 cp s3://$BUCKET_NAME/$FILENAME downloaded.glb && echo "File $FILENAME downloaded successfully from $BUCKET_NAME/$FILENAME as downloaded.glb"</textarea>
+                <div class="output-box" id="download-file-cli-output"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="code-section">
+        <h2>4. Clean Up (Delete Bucket)</h2>
         <div class="code-container">
             <div class="code-box">
                 <div class="code-header">
@@ -305,13 +348,51 @@ print(f"Bucket {bucket_name} deleted successfully!")</textarea>
                 });
                 const result = await response.json();
                 if (result.success) {
-                    outputBox.textContent = 'Operation completed successfully!';
+                    outputBox.textContent = result.output || 'Operation completed successfully!';
+                    if (operation === 'download-file') {
+                        // Update the model in the viewer after successful download
+                        updateModel('downloaded.glb');
+                    }
                 } else {
                     outputBox.textContent = `Error: ${result.error}`;
                 }
             } catch (error) {
                 outputBox.textContent = `Error: ${error.message}`;
             }
+        }
+
+        function updateModel(filename) {
+            // Clear existing model
+            scene.children.forEach(child => {
+                if (child instanceof THREE.Mesh || child instanceof THREE.Group) {
+                    scene.remove(child);
+                }
+            });
+
+            // Load new model
+            const loader = new THREE.GLTFLoader();
+            loader.load(
+                `/${filename}`,
+                function (gltf) {
+                    const model = gltf.scene;
+                    model.scale.set(10, 10, 10);
+                    scene.add(model);
+                    
+                    // Center the model
+                    const box = new THREE.Box3().setFromObject(model);
+                    const center = box.getCenter(new THREE.Vector3());
+                    model.position.sub(center);
+                    
+                    // Move to floor level
+                    model.position.y = 0;
+                },
+                function (xhr) {
+                    console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+                },
+                function (error) {
+                    console.error('An error occurred while loading the model:', error);
+                }
+            );
         }
 
         async function runCliCode(operation) {
@@ -331,15 +412,6 @@ print(f"Bucket {bucket_name} deleted successfully!")</textarea>
                 const result = await response.json();
                 if (result.success) {
                     outputBox.textContent = result.output || 'Operation completed successfully!';
-                    if (operation === 'create-bucket' && result.output) {
-                        // Extract bucket name from output
-                        const match = result.output.match(/Bucket (my-3d-model-bucket[^ ]+) created successfully!/);
-                        if (match) {
-                            currentBucketName = match[1];
-                        }
-                    } else if (operation === 'delete-bucket') {
-                        currentBucketName = null;
-                    }
                 } else {
                     outputBox.textContent = `Error: ${result.error}`;
                 }

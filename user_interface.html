@@ -198,18 +198,28 @@
                     <span>Python (boto3)</span>
                     <button class="run-button" onclick="runPythonCode('create-bucket')">RUN</button>
                 </div>
-                <textarea class="code-editor" id="create-bucket-python-code">s3 = boto3.client('s3')
+                <textarea class="code-editor" id="create-bucket-python-code"># Initialize S3 and STS clients
+s3 = boto3.client('s3')
 sts = boto3.client('sts')
+
+# Get the current AWS account ID
 account_id = sts.get_caller_identity()['Account']
+
+# Create a unique bucket name using the account ID
 bucket_name = f'workshop-bucket-{account_id}'
+
+# Get the current AWS region
 region = boto3.Session().region_name
+
+# Create the S3 bucket in the current region
 s3.create_bucket(
     Bucket=bucket_name,
     CreateBucketConfiguration={
         'LocationConstraint': region
     }
 )
-print(f"Bucket {bucket_name} created successfully!")
+
+# Store the bucket name for later use
 currentBucketName = bucket_name</textarea>
                 <div class="output-box" id="create-bucket-python-output"></div>
             </div>
@@ -218,7 +228,19 @@ currentBucketName = bucket_name</textarea>
                     <span>AWS CLI</span>
                     <button class="run-button" onclick="runCliCode('create-bucket')">RUN</button>
                 </div>
-                <textarea class="code-editor" id="create-bucket-cli-code">ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text) && BUCKET_NAME="workshop-bucket-cli-${ACCOUNT_ID}" && aws s3api create-bucket --bucket $BUCKET_NAME --create-bucket-configuration LocationConstraint=$(aws configure get region) && echo "Bucket $BUCKET_NAME created successfully!"</textarea>
+                <textarea class="code-editor" id="create-bucket-cli-code"># Get the current AWS account ID
+ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+
+# Create a unique bucket name using the account ID
+BUCKET_NAME="workshop-bucket-cli-${ACCOUNT_ID}"
+
+# Get the current AWS region
+REGION=$(aws configure get region)
+
+# Create the S3 bucket in the current region and capture output
+aws s3api create-bucket \
+    --bucket $BUCKET_NAME \
+    --create-bucket-configuration LocationConstraint=$REGION</textarea>
                 <div class="output-box" id="create-bucket-cli-output"></div>
             </div>
         </div>
@@ -235,17 +257,23 @@ currentBucketName = bucket_name</textarea>
                 <textarea class="code-editor" id="upload-file-python-code"># Set the filename you want to upload
 filename = 'duck.glb'
 
+# Initialize S3 and STS clients
 s3 = boto3.client('s3')
 sts = boto3.client('sts')
+
+# Get the current AWS account ID
 account_id = sts.get_caller_identity()['Account']
+
+# Create a unique bucket name using the account ID
 bucket_name = f'workshop-bucket-{account_id}'
+
+# Upload the file to S3 with the correct content type
 s3.upload_file(
     filename,
     bucket_name,
     filename,
     ExtraArgs={'ContentType': 'model/gltf-binary'}
-)
-print(f"File {filename} uploaded successfully to {bucket_name}/{filename}")</textarea>
+)</textarea>
                 <div class="output-box" id="upload-file-python-output"></div>
             </div>
             <div class="code-box">
@@ -256,7 +284,16 @@ print(f"File {filename} uploaded successfully to {bucket_name}/{filename}")</tex
                 <textarea class="code-editor" id="upload-file-cli-code"># Set the filename you want to upload
 FILENAME="duck.glb"
 
-ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text) && BUCKET_NAME="workshop-bucket-cli-${ACCOUNT_ID}" && aws s3 cp $FILENAME s3://$BUCKET_NAME/$FILENAME --content-type "model/gltf-binary" && echo "File $FILENAME uploaded successfully to $BUCKET_NAME/$FILENAME"</textarea>
+# Get the current AWS account ID
+ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+
+# Create a unique bucket name using the account ID
+BUCKET_NAME="workshop-bucket-cli-${ACCOUNT_ID}"
+
+# Upload the file to S3 with the correct content type and capture output
+aws s3 cp $FILENAME \
+    s3://$BUCKET_NAME/$FILENAME \
+    --content-type "model/gltf-binary"</textarea>
                 <div class="output-box" id="upload-file-cli-output"></div>
             </div>
         </div>
@@ -273,16 +310,22 @@ ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text) && BUCKE
                 <textarea class="code-editor" id="download-file-python-code"># Set the filename you want to download from S3
 filename = 'oxford.glb'
 
+# Initialize S3 and STS clients
 s3 = boto3.client('s3')
 sts = boto3.client('sts')
+
+# Get the current AWS account ID
 account_id = sts.get_caller_identity()['Account']
+
+# Create a unique bucket name using the account ID
 bucket_name = f'workshop-bucket-{account_id}'
+
+# Download the file from S3
 s3.download_file(
     bucket_name,
     filename,
     'downloaded.glb'
-)
-print(f"File {filename} downloaded successfully from {bucket_name}/{filename} as downloaded.glb")</textarea>
+)</textarea>
                 <div class="output-box" id="download-file-python-output"></div>
             </div>
             <div class="code-box">
@@ -293,7 +336,16 @@ print(f"File {filename} downloaded successfully from {bucket_name}/{filename} as
                 <textarea class="code-editor" id="download-file-cli-code"># Set the filename you want to download from S3
 FILENAME="oxford.glb"
 
-ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text) && BUCKET_NAME="workshop-bucket-cli-${ACCOUNT_ID}" && aws s3 cp s3://$BUCKET_NAME/$FILENAME downloaded.glb && echo "File $FILENAME downloaded successfully from $BUCKET_NAME/$FILENAME as downloaded.glb"</textarea>
+# Get the current AWS account ID
+ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+
+# Create a unique bucket name using the account ID
+BUCKET_NAME="workshop-bucket-cli-${ACCOUNT_ID}"
+
+# Download the file from S3 and capture output
+aws s3 cp \
+    s3://$BUCKET_NAME/$FILENAME \
+    downloaded.glb</textarea>
                 <div class="output-box" id="download-file-cli-output"></div>
             </div>
         </div>
@@ -307,15 +359,25 @@ ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text) && BUCKE
                     <span>Python (boto3)</span>
                     <button class="run-button" onclick="runPythonCode('delete-bucket')">RUN</button>
                 </div>
-                <textarea class="code-editor" id="delete-bucket-python-code">s3 = boto3.client('s3')
+                <textarea class="code-editor" id="delete-bucket-python-code"># Initialize S3 clients
+s3 = boto3.client('s3')
 s3_resource = boto3.resource('s3')
 sts = boto3.client('sts')
+
+# Get the current AWS account ID
 account_id = sts.get_caller_identity()['Account']
+
+# Create a unique bucket name using the account ID
 bucket_name = f'workshop-bucket-{account_id}'
+
+# Get the bucket resource
 bucket = s3_resource.Bucket(bucket_name)
+
+# Delete all objects in the bucket
 bucket.objects.all().delete()
-s3.delete_bucket(Bucket=bucket_name)
-print(f"Bucket {bucket_name} deleted successfully!")</textarea>
+
+# Delete the empty bucket
+s3.delete_bucket(Bucket=bucket_name)</textarea>
                 <div class="output-box" id="delete-bucket-python-output"></div>
             </div>
             <div class="code-box">
@@ -323,7 +385,17 @@ print(f"Bucket {bucket_name} deleted successfully!")</textarea>
                     <span>AWS CLI</span>
                     <button class="run-button" onclick="runCliCode('delete-bucket')">RUN</button>
                 </div>
-                <textarea class="code-editor" id="delete-bucket-cli-code">ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text) && BUCKET_NAME="workshop-bucket-cli-${ACCOUNT_ID}" && aws s3 rm s3://$BUCKET_NAME --recursive && aws s3api delete-bucket --bucket $BUCKET_NAME && echo "Bucket $BUCKET_NAME deleted successfully!"</textarea>
+                <textarea class="code-editor" id="delete-bucket-cli-code"># Get the current AWS account ID
+ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+
+# Create a unique bucket name using the account ID
+BUCKET_NAME="workshop-bucket-cli-${ACCOUNT_ID}"
+
+# Delete all objects in the bucket and capture output
+aws s3 rm s3://$BUCKET_NAME --recursive
+
+# Delete the empty bucket and capture output
+aws s3api delete-bucket --bucket $BUCKET_NAME</textarea>
                 <div class="output-box" id="delete-bucket-cli-output"></div>
             </div>
         </div>
@@ -412,6 +484,10 @@ print(f"Bucket {bucket_name} deleted successfully!")</textarea>
                 const result = await response.json();
                 if (result.success) {
                     outputBox.textContent = result.output || 'Operation completed successfully!';
+                    if (operation === 'download-file') {
+                        // Update the model in the viewer after successful download
+                        updateModel('downloaded.glb');
+                    }
                 } else {
                     outputBox.textContent = `Error: ${result.error}`;
                 }

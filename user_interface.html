@@ -236,6 +236,9 @@ BUCKET_NAME="workshop-bucket-cli-${ACCOUNT_ID}"
 
 # Get the current AWS region
 REGION=$(aws configure get region)
+if [ -z "$REGION" ]; then
+  REGION=$AWS_REGION
+fi
 
 # Create the S3 bucket in the current region and capture output
 aws s3api create-bucket \

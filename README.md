@@ -149,39 +149,78 @@ Access the URL again and make sure the duck appears.
 
 ![Duck](README_images/duck.png)
 
+Below the duck, there are code snippets. Move on the "Storage bucket" chapter. 
+
 </details>
 
 <details>
 <summary><h2>Storage bucket</h2></summary>
 
+<details>
+<summary>Use the code snippet to create a S3 bucket</summary>
+
+If you have enabled the user interface, you should find consoles under the duck.
+You have the choice between running a Python script or running a CLI command. 
+
+(Missing image)
+
+</details>
 
 <details>
-<summary>If you have enabled the user interface, you should find consoles under the duck.</summary>
+<summary>Check the S3 bucket has been properly created</summary>
 
-You have the choice between running a Python script or running a CLI command to create a S3 bucket. 
-
-![Duck](README_images/create_s3_bucket.png)
+(Missing image)
 
 </details>
 
 <details>
 <summary>Upload duck.glb to S3</summary>
 
-![Duck](README_images/upload_s3_bucket.png)
+(Missing image)
 
 </details>
 
 <details>
-<summary>Check the duck is in the bucket</summary>
+<summary>Check the duck is in the S3 bucket</summary>
 
-![Duck](README_images/duck_in_bucket.png)
+(Missing image)
+
+</details>
+
+<details>
+<summary>Download oxford.glb from the bucket</summary>
+
+First, you need to modify the upload code to upload "oxford.glb" instead of "duck.glb", and run it again. 
+Then, you can use the third code snippet to download oxford.glb. 
+
+(Missing image)
+
+</details>
+
+<details>
+<summary>Check that oxford.glb is downloaded</summary>
+
+The 3D model should now be the door to St. Cross College. 
+
+(Missing image)
 
 </details>
 
 <details>
 <summary>Cleaning up</summary>
 
-![Duck](README_images/cleanup_s3_bucket.png)
+Run the fourth snippet to delete the bucket. 
+
+(Missing image)
+
+</details>
+
+<details>
+<summary>Check that the S3 bucket is deleted</summary>
+
+Again, after running the code, check in the S3 console that it worked. 
+
+(Missing image)
 
 </details>
 

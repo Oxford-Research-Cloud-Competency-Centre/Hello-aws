@@ -162,28 +162,30 @@ Below the duck, there are code snippets. Move on the "Storage bucket" chapter.
 If you have enabled the user interface, you should find consoles under the duck.
 You have the choice between running a Python script or running a CLI command. 
 
-(Missing image)
+![Create S3 bucket](README_images/create_s3_bucket.png)
 
 </details>
 
 <details>
 <summary>Check the S3 bucket has been properly created</summary>
 
-(Missing image)
+Since S3 buckets must be unique across all AWS users, only one of us could name the bucket "workshop-bucket". That's why the script adds your account ID in the name.  
+
+![Created S3 bucket](README_images/created_s3_bucket.png)
 
 </details>
 
 <details>
 <summary>Upload duck.glb to S3</summary>
 
-(Missing image)
+![Upload S3 bucket](README_images/upload_s3_bucket.png)
 
 </details>
 
 <details>
 <summary>Check the duck is in the S3 bucket</summary>
 
-(Missing image)
+![Uploaded S3 bucket](README_images/uploaded_s3_bucket.png)
 
 </details>
 
@@ -191,9 +193,12 @@ You have the choice between running a Python script or running a CLI command.
 <summary>Download oxford.glb from the bucket</summary>
 
 First, you need to modify the upload code to upload "oxford.glb" instead of "duck.glb", and run it again. 
+
+![Upload S3 bucket](README_images/reupload_s3_bucket.png)
+
 Then, you can use the third code snippet to download oxford.glb. 
 
-(Missing image)
+![Download S3 bucket](README_images/download_s3_bucket.png)
 
 </details>
 
@@ -202,7 +207,7 @@ Then, you can use the third code snippet to download oxford.glb.
 
 The 3D model should now be the door to St. Cross College. 
 
-(Missing image)
+![Downloaded S3 bucket](README_images/downloaded_s3_bucket.png)
 
 </details>
 
@@ -211,16 +216,14 @@ The 3D model should now be the door to St. Cross College.
 
 Run the fourth snippet to delete the bucket. 
 
-(Missing image)
+![Cleanup S3 bucket](README_images/cleanup_s3_bucket.png)
 
 </details>
 
 <details>
 <summary>Check that the S3 bucket is deleted</summary>
 
-Again, after running the code, check in the S3 console that it worked. 
-
-(Missing image)
+![Cleaned S3 bucket](README_images/cleaned_s3_bucket.png)
 
 </details>
 

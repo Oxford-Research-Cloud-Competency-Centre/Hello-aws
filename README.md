@@ -232,7 +232,7 @@ Run the fourth snippet to delete the bucket.
 
 Are you getting an error when you try to run the first code snippet? Most likely, this is because your AWS App Runner instance is not authorized to use S3. 
 
-![Security error](README_images/error_security.png)
+![Security error](README_images/security_error.png)
 
 In App Runner, go to Configuration, then Security, and check that the instance is associated to a role. 
 

@@ -227,6 +227,23 @@ Run the fourth snippet to delete the bucket.
 
 </details>
 
+<details>
+<summary>TROUBLESHOOTING: Missing S3 permissions</summary>
+
+Are you getting an error when you try to run the first code snippet? Most likely, this is because your AWS App Runner instance is not authorized to use S3. 
+
+![Security error](README_images/error_security.png)
+
+In App Runner, go to Configuration, then Security, and check that the instance is associated to a role. 
+
+![Security configuration](README_images/configuration_security.png)
+
+To this role, attach the S3 full access policy. 
+
+![Attach policy](README_images/attach_policy.png)
+
+</details>
+
 </details>
 
 <details>

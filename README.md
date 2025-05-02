@@ -275,7 +275,7 @@ https://www.python.org/downloads/
 <summary>Step 3. Install dependencies</summary>
 
 ```	
-	 py -m pip install flask
+	 python -m pip install -r requirements.txt
 ```
 
 ***
@@ -284,10 +284,10 @@ https://www.python.org/downloads/
 <summary>Step 4. Run flask</summary>
 
 ```	
-	 py -m flask run
+	 python -m flask run --port=80
 ```
 
-Open localhost:5000 in your browser.  
+Open localhost in your browser.  
 
 ***
 </details>

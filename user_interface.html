@@ -98,6 +98,19 @@
             min-height: 50px;
             display: none;
         }
+        .config-input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #2d2d2d;
+            color: #fff;
+        }
+        .config-input:read-only {
+            background-color: #3d3d3d;
+            cursor: not-allowed;
+        }
     </style>
 </head>
 <body>
@@ -397,6 +410,182 @@ aws s3 rm s3://$BUCKET_NAME --recursive
 # Delete the empty bucket and capture output
 aws s3api delete-bucket --bucket $BUCKET_NAME</textarea>
                 <div class="output-box" id="delete-bucket-cli-output"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="code-section">
+        <h2>5. Create EC2 Instance</h2>
+        <div class="code-container">
+            <div class="code-box">
+                <div class="code-header">
+                    <span>Python (boto3)</span>
+                    <button class="run-button" onclick="runPythonCode('create-ec2')">RUN</button>
+                </div>
+                <textarea class="code-editor" id="create-ec2-python-code"># Initialize EC2 client
+ec2 = boto3.client('ec2')
+
+# Set instance configuration
+instance_type = 't2.micro'  # Free tier eligible
+key_name = 'your-key-name'  # Replace with your SSH key name
+instance_name = 'workshop-instance'
+
+# Get the latest Amazon Linux 2 AMI ID
+response = ec2.describe_images(
+    Owners=['amazon'],
+    Filters=[
+        {
+            'Name': 'name',
+            'Values': ['amzn2-ami-hvm-*-x86_64-gp2']
+        },
+        {
+            'Name': 'state',
+            'Values': ['available']
+        }
+    ]
+)
+ami_id = sorted(response['Images'], key=lambda x: x['CreationDate'], reverse=True)[0]['ImageId']
+
+# Create EC2 instance
+response = ec2.run_instances(
+    ImageId=ami_id,
+    InstanceType=instance_type,
+    KeyName=key_name,
+    MinCount=1,
+    MaxCount=1,
+    TagSpecifications=[
+        {
+            'ResourceType': 'instance',
+            'Tags': [
+                {
+                    'Key': 'Name',
+                    'Value': instance_name
+                }
+            ]
+        }
+    ]
+)
+
+# Get the instance ID
+instance_id = response['Instances'][0]['InstanceId']
+
+# Wait for the instance to be running
+ec2.get_waiter('instance_running').wait(InstanceIds=[instance_id])
+
+# Get the public IP address
+instance = ec2.describe_instances(InstanceIds=[instance_id])
+public_ip = instance['Reservations'][0]['Instances'][0]['PublicIpAddress']
+
+print(f"Instance {instance_id} is running with public IP: {public_ip}")</textarea>
+                <div class="output-box" id="create-ec2-python-output"></div>
+            </div>
+            <div class="code-box">
+                <div class="code-header">
+                    <span>AWS CLI</span>
+                    <button class="run-button" onclick="runCliCode('create-ec2')">RUN</button>
+                </div>
+                <textarea class="code-editor" id="create-ec2-cli-code"># Set instance configuration
+INSTANCE_TYPE="t2.micro"  # Free tier eligible
+KEY_NAME="your-key-name"  # Replace with your SSH key name
+INSTANCE_NAME="workshop-instance"
+
+# Get the latest Amazon Linux 2 AMI ID
+AMI_ID=$(aws ec2 describe-images \
+    --owners amazon \
+    --filters "Name=name,Values=amzn2-ami-hvm-*-x86_64-gp2" "Name=state,Values=available" \
+    --query 'sort_by(Images, &CreationDate)[-1].[ImageId]' \
+    --output text)
+
+# Create EC2 instance and capture output
+INSTANCE_ID=$(aws ec2 run-instances \
+    --image-id $AMI_ID \
+    --instance-type $INSTANCE_TYPE \
+    --key-name $KEY_NAME \
+    --min-count 1 \
+    --max-count 1 \
+    --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$INSTANCE_NAME}]" \
+    --query 'Instances[0].InstanceId' \
+    --output text)
+
+# Wait for the instance to be running
+aws ec2 wait instance-running --instance-ids $INSTANCE_ID
+
+# Get the public IP address
+PUBLIC_IP=$(aws ec2 describe-instances \
+    --instance-ids $INSTANCE_ID \
+    --query 'Reservations[0].Instances[0].PublicIpAddress' \
+    --output text)
+
+echo "Instance $INSTANCE_ID is running with public IP: $PUBLIC_IP"</textarea>
+                <div class="output-box" id="create-ec2-cli-output"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="code-section">
+        <h2>6. Delete EC2 Instance</h2>
+        <div class="code-container">
+            <div class="code-box">
+                <div class="code-header">
+                    <span>Python (boto3)</span>
+                    <button class="run-button" onclick="runPythonCode('delete-ec2')">RUN</button>
+                </div>
+                <textarea class="code-editor" id="delete-ec2-python-code"># Initialize EC2 client
+ec2 = boto3.client('ec2')
+
+# Set instance name (must match the name used in create-ec2)
+instance_name = 'workshop-instance'
+
+# Find the instance ID by name
+response = ec2.describe_instances(
+    Filters=[
+        {
+            'Name': 'tag:Name',
+            'Values': [instance_name]
+        }
+    ]
+)
+
+if not response['Reservations']:
+    print(f"No instance found with name: {instance_name}")
+else:
+    instance_id = response['Reservations'][0]['Instances'][0]['InstanceId']
+    
+    # Terminate the instance
+    ec2.terminate_instances(InstanceIds=[instance_id])
+    
+    # Wait for the instance to be terminated
+    ec2.get_waiter('instance_terminated').wait(InstanceIds=[instance_id])
+    
+    print(f"Instance {instance_id} has been terminated")</textarea>
+                <div class="output-box" id="delete-ec2-python-output"></div>
+            </div>
+            <div class="code-box">
+                <div class="code-header">
+                    <span>AWS CLI</span>
+                    <button class="run-button" onclick="runCliCode('delete-ec2')">RUN</button>
+                </div>
+                <textarea class="code-editor" id="delete-ec2-cli-code"># Set instance name (must match the name used in create-ec2)
+INSTANCE_NAME="workshop-instance"
+
+# Find the instance ID by name
+INSTANCE_ID=$(aws ec2 describe-instances \
+    --filters "Name=tag:Name,Values=$INSTANCE_NAME" \
+    --query 'Reservations[0].Instances[0].InstanceId' \
+    --output text)
+
+if [ -z "$INSTANCE_ID" ]; then
+    echo "No instance found with name: $INSTANCE_NAME"
+else
+    # Terminate the instance
+    aws ec2 terminate-instances --instance-ids $INSTANCE_ID
+    
+    # Wait for the instance to be terminated
+    aws ec2 wait instance-terminated --instance-ids $INSTANCE_ID
+    
+    echo "Instance $INSTANCE_ID has been terminated"
+fi</textarea>
+                <div class="output-box" id="delete-ec2-cli-output"></div>
             </div>
         </div>
     </div>

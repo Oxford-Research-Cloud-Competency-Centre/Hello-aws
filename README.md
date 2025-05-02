@@ -1,5 +1,7 @@
 © The Chancellor, Masters and Scholars of The University of Oxford. All rights reserved.
 
+The workshop version of the AWS course is [available here](https://selectyourcloudinstance.com/workshop/). 
+
 # Explore different providers
 
 This course is available for multiple cloud providers. Choose your preferred platform:

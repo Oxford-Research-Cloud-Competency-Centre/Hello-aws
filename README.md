@@ -83,8 +83,6 @@ You can commit some changes to your repository and watch how the service is upda
 <details>
 <summary><h2>Using a custom domain</h2></summary>
 
-<details>
-
 If you want to use a custom domain, just click "Link domain" in App Runner and follow the instructions. If you are not using Route 53, you will be asked to create the DNS records in your CloudFlare, Azure DNS or other account. 
 
 ![Linking the domain](README_images/link_domain.png)

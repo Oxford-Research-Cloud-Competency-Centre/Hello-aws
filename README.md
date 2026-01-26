@@ -84,21 +84,10 @@ You can commit some changes to your repository and watch how the service is upda
 <summary><h2>Using a custom domain</h2></summary>
 
 <details>
-<summary>Step 1. If you want to use a custom domain (like hello.com), just click "Link domain".</summary>
+
+If you want to use a custom domain, just click "Link domain" in App Runner and follow the instructions. If you are not using Route 53, you will be asked to create the DNS records in your CloudFlare, Azure DNS or other account. 
 
 ![Linking the domain](README_images/link_domain.png)
-
-***
-</details>
-<details>
-<summary>Step 2. If you are using Route 53, then AWS should create the record for you. You don't need to do this step but you might need to delete the records manually when you remove the service.</summary>
-
-
-![The DNS record](README_images/domain_routing.png)
-
-***
-</details>
-Voilà! 
 
 ![Voilà](README_images/domain.png)
 

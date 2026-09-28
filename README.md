@@ -7,6 +7,7 @@ This course is available for multiple cloud providers. Choose your preferred pla
 - [Hello Google Cloud](https://github.com/Oxford-Research-Cloud-Competency-Centre/Hello-gcloud)
 - [Hello Microsoft Azure](https://github.com/Oxford-Research-Cloud-Competency-Centre/Hello-azure)
 - [Hello Amazon Web Services](https://github.com/Oxford-Research-Cloud-Competency-Centre/Hello-aws) (You are here) (⭐ Most popular)
+- [Hello IBM Cloud](https://github.com/Oxford-Research-Cloud-Competency-Centre/Hello-ibm-cloud)
 
 # University workshop
 
